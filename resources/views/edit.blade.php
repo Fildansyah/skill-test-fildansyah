@@ -18,7 +18,7 @@
                     <div>
                         <label for="driver_id" class="block text-sm font-medium text-gray-700">Driver</label>
                         <select id="driver_id" name="driver_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                            <option value="">Select Driver</option>
+                            <option value="">Pilih Driver</option>
                             @foreach($drivers as $driver)
                                 <option value="{{ $driver->id }}" {{ (old('driver_id', $trip->driver_id) == $driver->id) ? 'selected' : '' }}>
                                     {{ $driver->name }}
@@ -33,7 +33,7 @@
                     <div>
                         <label for="truck_id" class="block text-sm font-medium text-gray-700">Truck</label>
                         <select id="truck_id" name="truck_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                            <option value="">Select Truck</option>
+                            <option value="">Pilih Truck</option>
                             @foreach($trucks as $truck)
                                 <option value="{{ $truck->id }}" {{ (old('truck_id', $trip->truck_id) == $truck->id) ? 'selected' : '' }}>
                                     {{ $truck->license_plate }} ({{ $truck->model }})
@@ -88,10 +88,10 @@
 
                 <div class="mt-6 flex items-center justify-end space-x-3">
                     <a href="{{ route('trips') }}" class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-                        Cancel
+                        Batalkan
                     </a>
                     <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        Update Trip
+                        Ubah Trip
                     </button>
                 </div>
             </form>

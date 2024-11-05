@@ -9,7 +9,7 @@
     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
-    <nav class="bg-white shadow-lg">
+    <nav class="bg-white shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
@@ -32,7 +32,6 @@
             </div>
         </div>
 
-        <!-- Mobile Navigation -->
         <div class="hidden md:hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="{{ route('dashboard') }}" class="block px-3 py-2 text-base font-medium text-gray-900">Dashboard</a>

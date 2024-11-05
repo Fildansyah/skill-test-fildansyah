@@ -7,14 +7,14 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="bg-white overflow-hidden shadow rounded-lg">
                 <div class="p-5">
-                    <div class="flex items-center">
+                    <div class="flex items-center gap-5">
                         <div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
                             <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                             </svg>
                         </div>
-                        <div class="ml-5 w-0 flex-1">
+                        <div class="w-0 flex-1">
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Total Trip Hari Ini</dt>
                                 <dd class="text-3xl font-semibold text-gray-900">{{ $todayTrips }}</dd>
