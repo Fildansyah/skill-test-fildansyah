@@ -3,64 +3,97 @@
 @section('title', 'Manage Trips')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="mb-6 flex justify-between items-center">
-        <h2 class="text-2xl font-bold text-gray-900">Daftar Trip</h2>
-        <a href="{{ route('trips.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Tambah Trip Baru
-        </a>
-    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-6 flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-gray-900">Daftar Trip</h2>
+            <a href="{{ route('trips.create') }}"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Tambah Trip Baru
+            </a>
+        </div>
 
-    <div class="bg-white shadow rounded-lg overflow-hidden">
-        <div class="p-6 overflow-auto">
-            <table id="tripsTable" class="min-w-full divide-y divide-gray-200">
-                <thead>
-                    <tr>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Driver</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Truck</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rute</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($trips as $trip)
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ $trip->driver->name }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ $trip->truck->license_plate }} ({{ $trip->truck->model }})
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ $trip->start_location }} → {{ $trip->end_location }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ $trip->trip_date}}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <a href="{{ route('trips.edit', $trip) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
-                            <form action="{{ route('trips.destroy', $trip) }}" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure?')">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div class="mb-6">
+            <form action="{{ route('trips') }}" method="GET" class="flex items-center space-x-4">
+                <div class="flex-1 max-w-xs">
+                    <label for="driver_id" class="block text-sm font-medium text-gray-700 mb-1">Filter by Driver</label>
+                    <select name="driver_id" id="driver_id"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        onchange="this.form.submit()">
+                        <option value="all">All Drivers</option>
+                        @foreach ($drivers as $driver)
+                            <option value="{{ $driver->id }}" {{ request('driver_id') == $driver->id ? 'selected' : '' }}>
+                                {{ $driver->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <div class="p-6 overflow-auto">
+                <table id="tripsTable" class="min-w-full divide-y divide-gray-200">
+                    <thead>
+                        <tr>
+                            <th
+                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Driver</th>
+                            <th
+                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Truck</th>
+                            <th
+                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Rute</th>
+                            <th
+                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Tanggal</th>
+                            <th
+                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach ($trips as $trip)
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    {{ $trip->driver->name }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {{ $trip->truck->license_plate }} ({{ $trip->truck->model }})
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {{ $trip->start_location }} → {{ $trip->end_location }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {{ $trip->trip_date }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="{{ route('trips.edit', $trip) }}"
+                                        class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
+                                    <form action="{{ route('trips.destroy', $trip) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-red-900"
+                                            onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 @endsection
 
 @push('scripts')
-<script>
-    $(document).ready(function() {
-        $('#tripsTable').DataTable({
-            "order": [[3, "desc"]]
+    <script>
+        $(document).ready(function() {
+            $('#tripsTable').DataTable({
+                "order": [
+                    [3, "desc"]
+                ]
+            });
         });
-    });
-</script>
+    </script>
 @endpush

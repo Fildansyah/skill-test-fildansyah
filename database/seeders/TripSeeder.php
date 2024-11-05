@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Trip;
 use Faker\Factory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 
@@ -27,8 +26,8 @@ class TripSeeder extends Seeder
                 : $faker->dateTimeBetween('-1 year', '+1 year')->format('Y-m-d');
 
             $trips[] = [
-                'truck_id' => $faker->numberBetween(1, 3),
-                'driver_id' => $faker->numberBetween(1, 3),
+                'truck_id' => $faker->numberBetween(1, 30),
+                'driver_id' => $faker->numberBetween(1, 20),
                 'start_location' => $faker->city,
                 'end_location' => $faker->city,
                 'distance' => $faker->numberBetween(100, 300),

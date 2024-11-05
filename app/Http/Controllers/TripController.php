@@ -9,12 +9,19 @@ use Illuminate\Http\Request;
 
 class TripController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $trips = Trip::with(['truck', 'driver'])->get();
-        return view('trips', compact('trips'));
-    }
+        $drivers = Driver::orderBy('name')->get();
+        $trips = Trip::with(['truck', 'driver']);
 
+        if ($request->has('driver_id') && $request->driver_id != 'all') {
+            $trips->where('driver_id', $request->driver_id);
+        }
+
+        $trips = $trips->get();
+        return view('trips', compact('trips', 'drivers'));
+    }
+    
     public function apiIndex()
     {
         $trips = Trip::with(['truck', 'driver']);
@@ -58,7 +65,7 @@ class TripController extends Controller
         ]);
 
         $trip = Trip::create($validated);
-        
+
         if ($request->expectsJson()) {
             return response()->json([
                 'message' => 'Trip created successfully',
@@ -89,7 +96,7 @@ class TripController extends Controller
         ]);
 
         $trip->update($validated);
-        
+
         if ($request->expectsJson()) {
             return response()->json([
                 'message' => 'Trip updated successfully',
