@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Truck;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class TruckSeeder extends Seeder
@@ -12,29 +13,19 @@ class TruckSeeder extends Seeder
      */
     public function run(): void
     {
-        $trucks = [
-            [
-                'license_plate' => 'B 6670 CD',
-                'model' => 'Isuzu',
-                'capacity' => 8000,
-                'exp_kir' => '2024-12-31',
-                'status' => 'available'
-            ],
-            [
-                'license_plate' => 'B 1234 EF',
-                'model' => 'Hino',
-                'capacity' => 10000,
-                'exp_kir' => '2024-11-30',
-                'status' => 'available'
-            ],
-            [
-                'license_plate' => 'B 5678 GH',
-                'model' => 'Mitsubishi',
-                'capacity' => 6000,
-                'exp_kir' => '2024-10-31',
-                'status' => 'available'
-            ]
-        ];
+        $faker = Factory::create();
+
+        $trucks = [];
+        for ($i = 0; $i < 30; $i++) {
+            $trucks[] = [
+                'license_plate' => $faker->regexify('[A-Z]{2} [0-9]{4} [A-Z]{2}'),
+                'model' => $faker->randomElement(['Isuzu', 'Hino', 'Mitsubishi', 'UD']),
+                'capacity' => $faker->numberBetween(1000, 3000),
+                'exp_kir' => $faker->dateTimeBetween('-1 year', '+1 year')->format('Y-m-d'),
+                'status' => $faker->randomElement(['available', 'maintenance', 'on_trip'])
+            ];
+        }
+
 
         foreach ($trucks as $truck) {
             Truck::create($truck);
