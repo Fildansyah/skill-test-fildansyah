@@ -15,7 +15,7 @@
         <div class="mb-6">
             <form action="{{ route('trips') }}" method="GET" class="flex items-center space-x-4">
                 <div class="flex-1 max-w-xs">
-                    <label for="driver_id" class="block text-sm font-medium text-gray-700 mb-1">Filter by Driver</label>
+                    <label for="driver_id" class="block text-sm font-medium text-gray-700 mb-1">Pilih Driver</label>
                     <select name="driver_id" id="driver_id"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         onchange="this.form.submit()">
