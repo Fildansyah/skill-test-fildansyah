@@ -16,12 +16,17 @@ class DriverSeeder extends Seeder
 
         $faker = Factory::create();
 
+        $totalDrivers = 20;
+        $nearExpire = 7;
+
         $drivers = [];
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < $totalDrivers; $i++) {
+            $expireDate = ($i < $nearExpire) ? $faker->dateTimeBetween('+5 days', '+30 days')->format('Y-m-d') : $faker->dateTimeBetween('+1 year', '+4 year')->format('Y-m-d');
+
             $drivers[] = [
                 'name' => $faker->name,
                 'license_number' => $faker->numberBetween(1000, 9999),
-                'exp_sim' => $faker->dateTimeBetween('-1 year', '+1 year')->format('Y-m-d'),
+                'exp_sim' => $expireDate,
                 'experience_years' => $faker->numberBetween(1, 10)
             ];
         }

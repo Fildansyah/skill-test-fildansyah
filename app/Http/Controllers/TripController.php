@@ -30,8 +30,8 @@ class TripController extends Controller
             return [
                 "trip_id" => $trip->id,
                 "truck" => [
-                    "truck_id" => $trip->truck->id,
                     "license_plate" => $trip->truck->license_plate,
+                    "model" => $trip->truck->model
                 ],
                 "driver" => [
                     "name" => $trip->driver->name,
