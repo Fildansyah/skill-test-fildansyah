@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('driver_id')->constrained()->cascadeOnDelete();
             $table->string('start_location');
             $table->string('end_location');
-            $table->decimal('distance', 10, 2);
+            $table->integer('distance');
             $table->date('trip_date');
             $table->timestamps();
         });
